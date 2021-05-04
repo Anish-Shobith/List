@@ -106,7 +106,7 @@ class List<V> extends Set<V> {
    */
   public find(
     fn: (val1: V, val2: V, list: this) => boolean,
-    thisArg?: any
+    thisArg?: unknown
   ): V | undefined {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     for (const [val1, val2] of this.entries()) {
@@ -123,7 +123,7 @@ class List<V> extends Set<V> {
    */
   public sweep(
     fn: (val1: V, val2: V, list: this) => boolean,
-    thisArg?: any
+    thisArg?: unknown
   ): number {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     const previousSize = this.size;
@@ -164,7 +164,7 @@ class List<V> extends Set<V> {
    */
   public partition(
     fn: (val1: V, val2: V, list: this) => boolean,
-    thisArg?: any
+    thisArg?: unknown
   ): [List<V>, List<V>] {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     const results: [List<V>, List<V>] = [
@@ -189,7 +189,10 @@ class List<V> extends Set<V> {
    * @returns {Array}
    * @example list.map(user => user.tag);
    */
-  public map<T>(fn: (val1: V, val2: V, list: this) => T, thisArg?: any): T[] {
+  public map<T>(
+    fn: (val1: V, val2: V, list: this) => T,
+    thisArg?: unknown
+  ): T[] {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     const iter = this.entries();
     return Array.from(
@@ -211,7 +214,7 @@ class List<V> extends Set<V> {
    */
   public mapValues<T>(
     fn: (val1: V, val2: V, list: this) => T,
-    thisArg?: any
+    thisArg?: unknown
   ): List<T> {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     const list = new this.constructor[Symbol.species]() as List<T>;
@@ -229,7 +232,7 @@ class List<V> extends Set<V> {
    */
   public some(
     fn: (val1: V, val2: V, list: this) => boolean,
-    thisArg?: any
+    thisArg?: unknown
   ): boolean {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     for (const [val1, val2] of this.entries()) {
@@ -248,7 +251,7 @@ class List<V> extends Set<V> {
    */
   public every(
     fn: (val1: V, val2: V, list: this) => boolean,
-    thisArg?: any
+    thisArg?: unknown
   ): boolean {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     for (const [val1, val2] of this.entries()) {
@@ -267,7 +270,7 @@ class List<V> extends Set<V> {
    * @example list.reduce((acc, guild) => acc + guild.memberCount, 0);
    */
   public reduce<T>(
-    fn: (accumulator: any, val1: V, val2: V, list: this) => T,
+    fn: (accumulator: unknown, val1: V, val2: V, list: this) => T,
     initialValue?: T
   ): T {
     // eslint-disable-next-line @typescript-eslint/init-declarations
@@ -308,8 +311,8 @@ class List<V> extends Set<V> {
    *  .each(user => console.log(user.username));
    */
   public each(
-    fn: (val1: V, val2: V, list: Set<V>) => any,
-    thisArg?: any
+    fn: (val1: V, val2: V, list: Set<V>) => unknown,
+    thisArg?: unknown
   ): this {
     this.forEach(fn, thisArg);
     return this;
@@ -326,7 +329,7 @@ class List<V> extends Set<V> {
    *  .filter(user => user.bot)
    *  .tap(list => console.log(list.size));
    */
-  public tap(fn: (list: this) => any, thisArg?: any): this {
+  public tap(fn: (list: this) => unknown, thisArg?: unknown): this {
     if (typeof thisArg !== 'undefined') fn = fn.bind(thisArg);
     fn(this);
     return this;
