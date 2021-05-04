@@ -435,6 +435,8 @@ class List<V> extends Set<V> {
       .filter((_, k) => !this.has(k))
       .concat(this.filter((_, k) => !other.has(k)));
   }
+
+  public static readonly default: typeof List = List;
 }
 
 module.exports = List;
