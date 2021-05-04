@@ -205,6 +205,22 @@ class List<V> extends Set<V> {
   }
 
   /**
+   * Maps each item into a List, then joins the results into a single List. Identical in behavior to
+   * [Array.flatMap()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap).
+   * @param {Function} fn Function that produces a new List
+   * @param {*} [thisArg] Value to use as `this` when executing function
+   * @returns {List}
+   * @example list.flatMap(guild => guild.members.cache);
+   */
+  public flatMap(
+    fn: (val1: V, val2: V, list: this) => List<V>,
+    thisArg: unknown
+  ): List<V> {
+    const list = this.map(fn, thisArg);
+    return (new this.constructor[Symbol.species]() as List<V>).concat(...list);
+  }
+
+  /**
    * Maps each item to another into a list. Identical in behavior to
    * [Array.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
    * @param {Function} fn Function that produces an element of the new list, taking three arguments
